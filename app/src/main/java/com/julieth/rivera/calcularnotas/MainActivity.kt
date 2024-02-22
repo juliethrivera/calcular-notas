@@ -9,7 +9,7 @@ import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
 
-    // declaramos la variable
+
     private lateinit var ingresarNombre : EditText
     private lateinit var ingresarPorcetaje : EditText
     private lateinit var ingresarNota : EditText
@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var guardar : Button
     private lateinit var progreso: ProgressBar
 
-    //variable global para validar el porcentaje
+
     private var porcentajeAcumulado = 0
 
     val listaNotas : MutableList<Double> = mutableListOf()
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //inicializamos la variable
+
         ingresarNombre = findViewById(R.id.ingresarNombre)
         ingresarPorcetaje = findViewById(R.id.ingresarPorcentaje)
         ingresarNota = findViewById(R.id.ingresarNota)
@@ -37,27 +37,38 @@ class MainActivity : AppCompatActivity() {
 
         guardar.setOnClickListener {
 
-            val nota = (ingresarNota.text.toString()).toDouble()
+            val nota = (ingresarNota.text.toString())
 
-            val porcentaje = (ingresarPorcetaje.text.toString()).toInt()
+            val porcentaje = (ingresarPorcetaje.text.toString())
 
             val nombre = ingresarNombre.text.toString()
 
+            if (nota.isNullOrEmpty() || porcentaje.isNullOrEmpty() || nombre.isNullOrEmpty()){
+
+                Toast.makeText(this, "los datos ingresados no son validos",
+                     Toast.LENGTH_LONG ).show()
+                return@setOnClickListener
+            }
 
 
+            if (validarNota(nota.toDouble()) && validarPorcentaje(porcentaje.toInt()) && validarNombre(nombre)){
+                listaNotas.add(nota.toDouble())
 
-            if (validarNota(nota) && validarPorcentaje(porcentaje)){
-                listaNotas.add(nota)
+                listaPorcentaje.add(porcentaje.toInt())
+                porcentajeAcumulado += porcentaje.toInt()
 
-                listaPorcentaje.add(porcentaje)
-                porcentajeAcumulado += porcentaje
-
+                ingresarNombre.isEnabled = false
                 ingresarNota.text.clear()
                 ingresarPorcetaje.text.clear()
 
+                Toast.makeText(this, "la nota ingresada es correcta",
+                    Toast.LENGTH_LONG).show()
+
 
             }else{
-                //TODO informar al usuario que la nota ingresada no es valida
+
+                Toast.makeText(this, "los datos ingresados no son validos",
+                    Toast.LENGTH_LONG).show()
             }
 
 
@@ -65,11 +76,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun actualizarProgreso(porcentaje: Int){
-        progreso.progress = porcentaje
 
-
-    }
     fun validarNota(nota : Double) : Boolean{
 
         return nota >= 0 && nota <= 5
@@ -83,8 +90,16 @@ class MainActivity : AppCompatActivity() {
         return  porcentajeAcumulado + porcentaje <=100
 
 
-    }
-}
 
+    }
+
+    fun validarNombre(nombre: String) : Boolean{
+        return !nombre.matches(Regex(".*\\d." ))
+    }
+
+
+
+
+}
 
 
