@@ -77,6 +77,14 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+     fun actualizarProgreso(porcentaje: Int){
+
+         progreso.progress = porcentaje
+
+         if (porcentaje >=100) {
+             finalizar.isEnabled = true
+         }
+     }
     fun validarNota(nota : Double) : Boolean{
 
         return nota >= 0 && nota <= 5
