@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
 
                 listaPorcentaje.add(porcentaje.toInt())
                 porcentajeAcumulado += porcentaje.toInt()
-
+                actualizarProgreso(porcentajeAcumulado)
                 ingresarNombre.isEnabled = false
                 ingresarNota.text.clear()
                 ingresarPorcetaje.text.clear()
