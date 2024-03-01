@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
+import com.julieth.rivera.calcular_notas.R
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,6 +18,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var ingresarNota: EditText
     private lateinit var finalizar : Button
     private lateinit var guardar : Button
+    private lateinit var vistaPromedio : TextView
+    private lateinit var vistaNotaFinal: TextView
+    private lateinit var siguienteEstudiante: Button
+    private var estudianteActual : Estudiante = Estudiante()
 
     private var porcentajeAcumulado = 0
     val listaNotas : MutableList<Double> = mutableListOf()
@@ -33,11 +39,20 @@ class MainActivity : AppCompatActivity() {
         ingresarNota = findViewById(R.id.ingresarNota)
         finalizar = findViewById(R.id.finalizar)
         guardar = findViewById(R.id.guardar)
+        siguienteEstudiante = findViewById(R.id.ingresarEstudiante)
+
+        finalizar.setOnClickListener{
+            vistaNotaFinal.text = "nota final :" + estudianteActual.notaFinal()
+            vistaPromedio.text = "promedio :" + estudianteActual.calcularPromedio()
+            siguienteEstudiante.isEnabled = true
+        }
 
         guardar.setOnClickListener {
             val nota = (ingresarNota.text.toString())
             val porcentaje = (ingresarPorcentaje.text.toString())
             val nombre = (ingresarNombre.text.toString())
+
+
 
             if (validarVacio(nombre, nota, porcentaje)){
                 if (validarNombre(nombre) &&
@@ -68,6 +83,9 @@ class MainActivity : AppCompatActivity() {
         progreso.progress = porcentaje
         if (porcentaje >= 100){
             finalizar.isEnabled = true
+            estudianteActual.nombre = (ingresarNota.text.toString())
+            estudianteActual.porcentaje = listaPorcentaje
+            estudianteActual.notas = listaNotas
         }
     }
     fun mostrarMensaje(mensaje : String){
@@ -87,6 +105,38 @@ class MainActivity : AppCompatActivity() {
     }
     fun validarPorcentaje(porcentaje : Int ) : Boolean{
         return porcentajeAcumulado + porcentaje <=100
+    }
+
+
+}
+
+class Estudiante (){
+
+    var nombre : String = ""
+    var notas : List<Double> = listOf()
+    var porcentaje : List<Int> = listOf()
+
+    fun calcularPromedio() : Double{
+        var sumaNotas = 0.0
+        for( n in notas){
+            sumaNotas += n
+        }
+
+        return sumaNotas / notas.size
+
+
+    }
+
+
+    fun notaFinal() : Double{
+        var notaFinal : Double = 0.0
+        var contador = 0
+        for (n in notas){
+            notaFinal += (n * porcentaje[contador]) / 100
+            contador++
+        }
+
+         return notaFinal
     }
 
 
