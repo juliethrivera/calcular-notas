@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     private var porcentajeAcumulado = 0
     val listaNotas : MutableList<Double> = mutableListOf()
     val listaPorcentaje : MutableList<Int> = mutableListOf()
+    val listaEstudiante : MutableList<Estudiante> = mutableList0f()
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +45,11 @@ class MainActivity : AppCompatActivity() {
         vistaPromedio = findViewById(R.id.vistaPromedio)
         vistaNotaFinal = findViewById(R.id.vistaNotaFinal)
 
+
+        siguienteEstudiante.setOnClickListener{
+            nuevoEstudiante()
+        }
+
         finalizar.setOnClickListener{
             vistaNotaFinal.text = "nota final :" + estudianteActual.notaFinal()
             vistaPromedio.text = "promedio :" + estudianteActual.calcularPromedio()
@@ -54,6 +60,8 @@ class MainActivity : AppCompatActivity() {
             val nota = (ingresarNota.text.toString())
             val porcentaje = (ingresarPorcentaje.text.toString())
             val nombre = (ingresarNombre.text.toString())
+
+
 
 
             if (validarVacio(nombre, nota, porcentaje)){
@@ -88,7 +96,19 @@ class MainActivity : AppCompatActivity() {
             estudianteActual.nombre = (ingresarNota.text.toString())
             estudianteActual.porcentaje = listaPorcentaje
             estudianteActual.notas = listaNotas
+            listaEstudiante.add(estudianteActual)
+
         }
+    }
+
+    fun nuevoEstudiante (){
+        ingresarNombre.text.clear()
+        progreso.progress = 0
+        porcentajeAcumulado = 0
+        ingresarNota.text.clear()
+        ingresarPorcentaje.text.clear()
+        vistaPromedio.text.clear()
+        vistaNotaFinal.text.clear()
     }
     fun mostrarMensaje(mensaje : String){
         Toast.makeText(this,
