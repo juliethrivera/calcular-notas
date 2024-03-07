@@ -107,8 +107,8 @@ class MainActivity : AppCompatActivity() {
         porcentajeAcumulado = 0
         ingresarNota.text.clear()
         ingresarPorcentaje.text.clear()
-        vistaPromedio.text.clear()
-        vistaNotaFinal.text.clear()
+        vistaPromedio.text = ""
+        vistaNotaFinal.text = ""
     }
     fun mostrarMensaje(mensaje : String){
         Toast.makeText(this,
