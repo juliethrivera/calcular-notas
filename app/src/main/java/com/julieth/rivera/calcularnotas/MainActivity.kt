@@ -19,8 +19,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var ingresarNota: EditText
     private lateinit var finalizar : Button
     private lateinit var guardar : Button
-    private lateinit var vistaPromedio : TextView
-    private lateinit var vistaNotaFinal: TextView
+    private lateinit var promedio : TextView
+    private lateinit var notaFinal: TextView
     private lateinit var siguienteEstudiante: Button
     private var estudianteActual : Estudiante = Estudiante()
 
@@ -42,8 +42,9 @@ class MainActivity : AppCompatActivity() {
         finalizar = findViewById(R.id.finalizar)
         guardar = findViewById(R.id.guardar)
         siguienteEstudiante = findViewById(R.id.ingresarEstudiante)
-        vistaPromedio = findViewById(R.id.vistaPromedio)
-        vistaNotaFinal = findViewById(R.id.vistaNotaFinal)
+        promedio = findViewById(R.id.promedio)
+        notaFinal = findViewById(R.id.notaFinal)
+
 
 
         siguienteEstudiante.setOnClickListener{
@@ -109,6 +110,8 @@ class MainActivity : AppCompatActivity() {
         ingresarPorcentaje.text.clear()
         vistaPromedio.text = ""
         vistaNotaFinal.text = ""
+
+        ingresarNota.isEnabled = true
     }
     fun mostrarMensaje(mensaje : String){
         Toast.makeText(this,
