@@ -9,6 +9,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import com.julieth.rivera.calcular_notas.R
+import java.lang.Math
 
 class MainActivity : AppCompatActivity() {
 
@@ -40,6 +41,8 @@ class MainActivity : AppCompatActivity() {
         finalizar = findViewById(R.id.finalizar)
         guardar = findViewById(R.id.guardar)
         siguienteEstudiante = findViewById(R.id.ingresarEstudiante)
+        vistaPromedio = findViewById(R.id.vistaPromedio)
+        vistaNotaFinal = findViewById(R.id.vistaNotaFinal)
 
         finalizar.setOnClickListener{
             vistaNotaFinal.text = "nota final :" + estudianteActual.notaFinal()
@@ -51,7 +54,6 @@ class MainActivity : AppCompatActivity() {
             val nota = (ingresarNota.text.toString())
             val porcentaje = (ingresarPorcentaje.text.toString())
             val nombre = (ingresarNombre.text.toString())
-
 
 
             if (validarVacio(nombre, nota, porcentaje)){
@@ -122,7 +124,7 @@ class Estudiante (){
             sumaNotas += n
         }
 
-        return sumaNotas / notas.size
+       return Math.round((sumaNotas / notas.size) * 1000.0) / 1000.0
 
 
     }
@@ -136,7 +138,7 @@ class Estudiante (){
             contador++
         }
 
-         return notaFinal
+         return Math.round(notaFinal * 1000.0) / 1000.0
     }
 
 
