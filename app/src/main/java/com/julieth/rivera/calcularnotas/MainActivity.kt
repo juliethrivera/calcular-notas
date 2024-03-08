@@ -8,7 +8,6 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
-import com.julieth.rivera.calcular_notas.R
 import java.lang.Math
 
 class MainActivity : AppCompatActivity() {
@@ -27,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     private var porcentajeAcumulado = 0
     val listaNotas : MutableList<Double> = mutableListOf()
     val listaPorcentaje : MutableList<Int> = mutableListOf()
-    val listaEstudiante : MutableList<Estudiante> = mutableList0f()
+    val listaEstudiante : MutableList<Estudiante> = mutableListOf()
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,9 +51,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         finalizar.setOnClickListener{
-            vistaNotaFinal.text = "nota final :" + estudianteActual.notaFinal()
-            vistaPromedio.text = "promedio :" + estudianteActual.calcularPromedio()
+            notaFinal.text = "nota final :" + estudianteActual.notaFinal()
+            promedio.text = "promedio :" + estudianteActual.calcularPromedio()
             siguienteEstudiante.isEnabled = true
+
         }
 
         guardar.setOnClickListener {
@@ -108,10 +108,13 @@ class MainActivity : AppCompatActivity() {
         porcentajeAcumulado = 0
         ingresarNota.text.clear()
         ingresarPorcentaje.text.clear()
-        vistaPromedio.text = ""
-        vistaNotaFinal.text = ""
-
+        promedio.text = ""
+        notaFinal.text = ""
+        ingresarNombre.isEnabled = true
+        finalizar.isEnabled = false
+        siguienteEstudiante.isEnabled = false
         ingresarNota.isEnabled = true
+
     }
     fun mostrarMensaje(mensaje : String){
         Toast.makeText(this,
