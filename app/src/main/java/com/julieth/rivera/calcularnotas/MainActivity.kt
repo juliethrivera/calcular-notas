@@ -48,6 +48,9 @@ class MainActivity : AppCompatActivity() {
 
         siguienteEstudiante.setOnClickListener{
             nuevoEstudiante()
+            listaPorcentaje.clear()
+            listaNotas.clear()
+
         }
 
         finalizar.setOnClickListener{
@@ -114,6 +117,8 @@ class MainActivity : AppCompatActivity() {
         finalizar.isEnabled = false
         siguienteEstudiante.isEnabled = false
         ingresarNota.isEnabled = true
+
+        estudianteActual = Estudiante()
 
     }
     fun mostrarMensaje(mensaje : String){
